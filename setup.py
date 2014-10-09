@@ -5,7 +5,7 @@ module1 = Extension('lambert',
 			('MINOR_VERSION', '0')],
 		sources = ['lambertmodule.c'])
 
-setup (name = 'Lambert',
+setup (name = 'lambert',
 		version = '1.0',
 		description = 'A Python wrapper to the C lambert library',
 		author = 'Yannick Heinrich',
