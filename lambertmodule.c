@@ -55,10 +55,37 @@ static PyObject* Point_convert(lambert_PointObject * self, PyObject *args){
         return NULL;
     }
         
+    YGPoint point = YGMeterPoint(self->x, self->y, self->z);
+    point = YGPointConvertWGS84(point, zone);
+
+    self->x = point.x;
+    self->y = point.y;
+    self->z = point.z;
+
     Py_RETURN_NONE;
 
 }
 
+/* Convertion methods */
+static PyObject* Point_convert_deg(lambert_PointObject * self, PyObject *args){
+    
+    long zone = 0;
+    if(! PyArg_ParseTuple(args, "I", &zone)){
+         PyErr_SetString(PyExc_StandardError, "An integer as zone is required !");
+        return NULL;
+    }
+        
+    YGPoint point = YGMeterPoint(self->x, self->y, self->z);
+    point = YGPointConvertWGS84(point, zone);
+    point = YGPointToDegree(point);
+
+    self->x = point.x;
+    self->y = point.y;
+    self->z = point.z;
+
+    Py_RETURN_NONE;
+
+}
 static PyMemberDef lambert_Point_members[] = {
     {"x", T_DOUBLE, offsetof(lambert_PointObject, x), 0,
      "X coordinate (longitude)"},
@@ -71,7 +98,10 @@ static PyMemberDef lambert_Point_members[] = {
 
 static PyMethodDef lambert_Point_methods[] = {
     {"wgs84", (PyCFunction)Point_convert, METH_VARARGS,
-     "Convert to wgs84"
+     "Convert to wgs84 (output in radian)"
+    },
+    {"wgs84deg", (PyCFunction)Point_convert_deg, METH_VARARGS,
+     "Convert to wgs84 (output in degree)"
     },
     {NULL}  /* Sentinel */
 };
