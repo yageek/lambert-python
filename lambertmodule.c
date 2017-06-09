@@ -108,7 +108,7 @@ static PyMethodDef lambert_Point_methods[] = {
 static PyTypeObject lambert_PointType = {
     PyObject_HEAD_INIT(NULL)
     0,                         /*ob_size*/
-    "lambert.Point",             /*tp_name*/
+    "pylambert.Point",             /*tp_name*/
     sizeof(lambert_PointObject), /*tp_basicsize*/
     0,                         /*tp_itemsize*/
     (destructor) Point_dealloc,                         /*tp_dealloc*/
@@ -157,7 +157,7 @@ static PyMethodDef lambert_methods[] = {
 #define PyMODINIT_FUNC void
 #endif
 PyMODINIT_FUNC
-initlambert(void) 
+initpylambert(void) 
 {
     PyObject* m, *zoneDict;
 
@@ -165,7 +165,7 @@ initlambert(void)
     if (PyType_Ready(&lambert_PointType) < 0)
         return;
 
-    m = Py_InitModule3("lambert", lambert_methods,
+    m = Py_InitModule3("pylambert", lambert_methods,
                        "Example module that creates an extension type.");
     zoneDict = PyModule_GetDict(m);
 

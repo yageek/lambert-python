@@ -1,12 +1,12 @@
-from distutils.core import setup, Extension
+from setuptools import setup, Extension
 
-module1 = Extension('lambert',
+module1 = Extension('pylambert',
 		define_macros = [('MAJOR_VERSION', '1'),
 			('MINOR_VERSION', '0')],
 		sources = ['lambertmodule.c', './lib/src/lambert.c'],
 		include_dirs = ['./lib/src'])
 
-setup (name = 'lambert',
+setup (name = 'pylambert',
 		version = '1.0',
 		description = 'A Python wrapper to the C lambert library',
 		author = 'Yannick Heinrich',
